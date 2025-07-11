@@ -122,13 +122,24 @@ str ClientSession::buildHttpResponseString(void)
         {
             if (reqst->isRedirectRequired())
             {
+		if(reqst->getRedirectStatus() == 301 || reqst->getRedirectStatus() == 308)
+                {
+                         std::ostringstream response;
+                         response << "HTTP/1.1 " << reqst->getRedirectStatus() << " Moved Permanently\r\n";
+                         response << "Location: " << reqst->getRedirectTarget() << "\r\n";
+                         response << "Content-Length: 0\r\n\r\n";
+                         reply = response.str();
+                }
 
-                
-              std::ostringstream response;
-              response << "HTTP/1.1 " << reqst->getRedirectStatus() << " Moved Permanently\r\n";
-              response << "Location: " << reqst->getRedirectTarget() << "\r\n";
-              response << "Content-Length: 0\r\n\r\n";
-              reply = response.str();
+                else if(reqst->getRedirectStatus() == 307)
+                {
+                    std::ostringstream response;
+                    response << "HTTP/1.1 307 Temporary Redirect\r\n";
+                    response << "Location: " << reqst->getRedirectTarget() << "\r\n";
+                    response << "Content-Length: 0\r\n\r\n";
+                    reply = response.str();
+
+                }
 
               delete it->first;
               delete it->second;
