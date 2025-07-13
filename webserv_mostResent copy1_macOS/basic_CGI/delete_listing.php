@@ -21,6 +21,7 @@ for ($i = 0; $i < count($entries); $i++) {
     }
 }
 
+// Uses array_splice to remove one element at position $index from the $entries array
 if ($index != -1) {
     array_splice($entries, $index, 1);
 }
