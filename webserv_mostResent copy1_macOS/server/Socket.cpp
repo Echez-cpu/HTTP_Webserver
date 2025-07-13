@@ -18,13 +18,13 @@ Socket::Socket(){}
 
 Socket::~Socket(){}
 
-Socket::Socket(const Socket& source) {
+Socket::Socket(const Socket& source) {     // not a deep copy; so unnecessary
 	this->socket_fd = source.socket_fd;
 	this->_sin_size = source._sin_size;
 }
 
 
-Socket& Socket::operator=(const Socket &original_copy) 
+Socket& Socket::operator=(const Socket &original_copy) // no deep copy
 {
 	if(this != &original_copy)
     {
