@@ -1,11 +1,11 @@
 <?php
 $file = dirname(dirname(__FILE__)) . '/d_struct/data.json';
-$dataJson = file_get_contents($file);
+$dataJson = file_get_contents($file); // Reads the entire contents of the JSON file into a string variable $dataJson
 
 $data = json_decode($dataJson, true);
 
 
-$post_data_file = $argv[1];
+$post_data_file = $argv[1]; // Grabs the first command-line argument set in the code (should be a filename containing POST data, e.g., "description=abc&price=10&phone=123")
 $post_data = file_get_contents($post_data_file);
 parse_str($post_data, $_POST);
 
